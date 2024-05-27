@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Mastering Robot Manipulation with Multimodal Prompts through Pretraining and Multi-task Fine-tuning.">
+  <meta name="keywords" content="Embodied AI, Multimodal Learning, Robotics Control">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mastering Robot Manipulation with Multimodal Prompts through Pretraining and Multi-task Fine-tuning
+  </title>
+  <!-- custom fonts -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link href="https://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
+  <!-- end custom fonts -->
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" type="svg" href="./static/fire.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Mastering Robot Manipulation with Multimodal Prompts through
+              Pretraining and Multi-task Fine-tuning
+            </h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://sites.google.com/view/jiachenli/home">Jiachen Li</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=Ub3LlsgAAAAJ&hl=en/">Qiaozi Gao</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=hEous9QAAAAJ&hl=en/">Michael
+                  Johnston</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://xfgao.github.io/">Xiaofeng Gao</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=kDzxOzUAAAAJ&hl=en/">Xuehai He</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=7r5shcMAAAAJ&hl=en/">Hangjie Shi</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=IP6H8LYAAAAJ&hl=en/">Suhaila Shakiah</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=00ncu3cAAAAJ&hl=en/">Reza Ghanadan</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sites.cs.ucsb.edu/~william/">William Yang Wang</a><sup>1</sup>
+              </span>
+            </div>
+
+
+            <div class="is-size-5 publication-authors" style="margin-top: 15px;">
+              <span class="author-block"><sup>1</sup>UC Santa Barbara,</span>
+              <span class="author-block"><sup>2</sup>Amazon AGI,</span>
+              <span class="author-block"><sup>3</sup>UC Santa Cruz</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a target="_blank" href="https://arxiv.org/pdf/2310.09676"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a target="_blank" href="https://arxiv.org/abs/2310.09676"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a target="_blank" href="https://github.com/Ji4chenLi/"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Prompt-based learning has been demonstrated as a compelling paradigm contributing to large language models' tremendous success (LLMs).
+              Inspired by their success in language tasks, existing research has leveraged LLMs in embodied instruction following and task planning.
+              In this work, we tackle the problem of training a robot to understand multimodal prompts, interleaving vision signals with text descriptions.
+              This type of task poses a major challenge to robots' capability to understand the interconnection and complementarity between vision and language signals.
+              In this work, we introduce an effective framework that learns a policy to perform robot manipulation with multimodal prompts from multi-task expert trajectories.
+              Our methods consist of a two-stage training pipeline that performs inverse dynamics pretraining and multi-task finetuning. To facilitate multimodal understanding,
+              we design our multimodal prompt encoder by augmenting a pretrained LM with a residual connection to the visual input and model the dependencies among action dimensions.
+              Empirically, we evaluate the efficacy of our method on the <a href="https://vimalabs.github.io/" target="_blank">VIMA-BENCH</a> and establish a new state-of-the-art
+              (10% improvement in success rate). Moreover, we demonstrate that our model exhibits remarkable in-context learning ability.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <!-- Training Pipeline. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Model Architecture</h2>
+
+          <img src="./static/images/model_arc.jpg" alt="" srcset="">
+          <div class="content has-text-justified">
+            <p>
+              <b>Model Architecture of our MIDAS</b>. Our model adopts a decoder-only architecture. The multimodal prompt embeddings are concatenated with history observation and action tokens. We model each action dimension as an individual token and predict them auto-regressively.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Training Pipeline. -->
+
+      <div class="container is-max-desktop">
+
+        <!-- Acknowledgement. -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Acknowledgement</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                This project would not be possible without the wonderful prior work <a href="https://vimalabs.github.io/" target="_blank">VIMA-BENCH</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Acknowledgement. -->
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{li2024midas,
+  title={Mastering Robot Manipulation with Multimodal Prompts through Pretraining and Multi-task Fine-tuning},
+  author={Jiachen Li and Weixi Feng and Wenhu Chen and William Yang Wang},
+  journal={Proceedings of the 41st International Conference on Machine Learning},
+  year={2024}
+}
+      </code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="https://proceedings.mlr.press/v202/li23av/li23av.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/cfpo-icml23/cfpi" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p style="text-align: center
+              ">
+              Website templated borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies.</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
