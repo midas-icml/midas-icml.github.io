@@ -134,15 +134,24 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Prompt-based learning has been demonstrated as a compelling paradigm contributing to large language models' tremendous success (LLMs).
-              Inspired by their success in language tasks, existing research has leveraged LLMs in embodied instruction following and task planning.
-              In this work, we tackle the problem of training a robot to understand multimodal prompts, interleaving vision signals with text descriptions.
-              This type of task poses a major challenge to robots' capability to understand the interconnection and complementarity between vision and language signals.
-              In this work, we introduce an effective framework that learns a policy to perform robot manipulation with multimodal prompts from multi-task expert trajectories.
-              Our methods consist of a two-stage training pipeline that performs inverse dynamics pretraining and multi-task finetuning. To facilitate multimodal understanding,
-              we design our multimodal prompt encoder by augmenting a pretrained LM with a residual connection to the visual input and model the dependencies among action dimensions.
-              Empirically, we evaluate the efficacy of our method on the <a href="https://vimalabs.github.io/" target="_blank">VIMA-BENCH</a> and establish a new state-of-the-art
-              (10% improvement in success rate). Moreover, we demonstrate that our model exhibits remarkable in-context learning ability.
+              Prompt-based learning has been demonstrated as a compelling paradigm contributing to large language
+              models' tremendous success (LLMs).
+              Inspired by their success in language tasks, existing research has leveraged LLMs in embodied instruction
+              following and task planning.
+              In this work, we tackle the problem of training a robot to understand multimodal prompts, interleaving
+              vision signals with text descriptions.
+              This type of task poses a major challenge to robots' capability to understand the interconnection and
+              complementarity between vision and language signals.
+              In this work, we introduce an effective framework that learns a policy to perform robot manipulation with
+              multimodal prompts from multi-task expert trajectories.
+              Our methods consist of a two-stage training pipeline that performs inverse dynamics pretraining and
+              multi-task finetuning. To facilitate multimodal understanding,
+              we design our multimodal prompt encoder by augmenting a pretrained LM with a residual connection to the
+              visual input and model the dependencies among action dimensions.
+              Empirically, we evaluate the efficacy of our method on the <a href="https://vimalabs.github.io/"
+                target="_blank">VIMA-BENCH</a> and establish a new state-of-the-art
+              (10% improvement in success rate). Moreover, we demonstrate that our model exhibits remarkable in-context
+              learning ability.
             </p>
           </div>
         </div>
@@ -154,7 +163,57 @@
   <section class="section">
     <div class="container is-max-desktop">
 
-      <!-- Training Pipeline. -->
+      <!-- Challenges. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Challenges in Multimodal Robotic Learning</h2>
+
+          <div class="content has-text-justified">
+            <ul>
+              <li>The vision signals in the prompt can represent target objects, delineate a specific sub-goal, or offer
+                in-context demonstrations.</li>
+              <li>The robot must understand the underlying transition dynamics suggested by the multimodal prompts
+                before tackling the overall task objective</li>
+              <li>The robot should infer state transitions from language instructions, and deducing actions from image
+                demonstrations, a concept known as inverse dynamic prediction.</li>
+              <li> However, <b>imitation learning falls short</b> in teaching robots to <b>predict inverse dynamics</b>,
+                as <b>future observations are often masked out</b> when training to predict actions from current and
+                history observations</li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <!--/ Challenges. -->
+
+      <!-- Pretraining. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Inverse Dynamic Pretraining</h2>
+          <img src="static/images/inverse_dynamic_prediction.png" alt="" srcset="">
+          <div class="content has-text-justified">
+            <ul>
+              <li>We make a novel observation that <b>every robot trajectory itself can be reformulated into a motion
+                  following task</b>.</li>
+              <li>
+                <p>
+                  Given any sequence of robot trajectory
+                  <span>&#969;<sub>T</sub> = (o<sub>0</sub>, a<sub>0</sub>, o<sub>1</sub>, &#x2026;, a<sub>T-1</sub>,
+                    o<sub>T</sub>)</span>,
+                  we can always create a task with the prompt
+                  <span>q<sub>pretrain</sub> = (<i>Follow this motion: </i>o<sub>0</sub>, &#x2026;,
+                    o<sub>T</sub>)</span>
+                  and ground-truth actions
+                  <span>(a<sub>0</sub>, &#x2026;, a<sub>T-1</sub>)</span>.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--/ Pretraining. -->
+
+      <!-- Model Architecture. -->
       <div class="columns is-centered">
         <div class="column is-full-width">
           <h2 class="title is-3">Model Architecture</h2>
@@ -162,12 +221,46 @@
           <img src="./static/images/model_arc.jpg" alt="" srcset="">
           <div class="content has-text-justified">
             <p>
-              <b>Model Architecture of our MIDAS</b>. Our model adopts a decoder-only architecture. The multimodal prompt embeddings are concatenated with history observation and action tokens. We model each action dimension as an individual token and predict them auto-regressively.
+              <b>Model Architecture of our MIDAS</b>. Our model adopts a decoder-only architecture. The multimodal
+              prompt embeddings are concatenated with history observation and action tokens. We model each action
+              dimension as an individual token and predict them auto-regressively.
             </p>
           </div>
         </div>
       </div>
-      <!--/ Training Pipeline. -->
+      <!--/ Model Architecture. -->
+
+      <!-- Multimodal Prompt Encoder. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Multimodal Prompt Encoder</h2>
+
+          <img src="./static/images/multimodal_prompt_encoder.png" alt="" srcset="">
+          <div class="content has-text-justified">
+            <p>
+              (a) We adopt the <b>Object Encoder</b> proposed in VIMA, which consists of a ViT that extracts visual embedding from cropped object images and a MLP that encodesbounding boxes. The two embeddings are concatenated before passing through a Fusion MLP to get the object tokens. (b) Our Multimodal Prompt Encoder adds a residual connection from the input object tokens to the pretrained LM output.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Multimodal Prompt Encoder. -->
+
+      <!-- Individual Action token. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Modeling the Dependency Among Each Action Dimension</h2>
+
+          <img src="./static/images/individual_action_token.png" alt="" srcset="">
+          <div class="content has-text-justified">
+            <p>
+              <b>Independently predicting each action dimension can be problematic.</b> Consider the example above, the robot should move either the heart
+              or the cross block. As the policy predicts each action dimension independently, different dimensions do not consistently
+              manipulate the same object, resulting in a task failure.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Individual Action token. -->
 
       <!-- Experimental results. -->
       <div class="columns is-centered">
@@ -177,9 +270,12 @@
           <img src="./static/images/main-results.png" alt="" srcset="">
           <div class="content has-text-justified">
             <p>
-              We compared our methods with baseline approaches on the VIMA-BENCH across all four evaluation levels. “Avg”
-                represents the average success rate for all tasks within an evaluation level. To determine the success rate for each method,
-                we sampled 200 episodes from every task. Our methods significantly outperform baseline methods and <b>establish a
+              We compared our methods with baseline approaches on the VIMA-BENCH across all four evaluation levels.
+              “Avg”
+              represents the average success rate for all tasks within an evaluation level. To determine the success
+              rate for each method,
+              we sampled 200 episodes from every task. Our methods significantly outperform baseline methods and
+              <b>establish a
                 new state-of-the-art performance on the VIMA-BENCH.</b>
             </p>
           </div>
@@ -196,7 +292,8 @@
 
             <div class="content has-text-justified">
               <p>
-                This project would not be possible without the wonderful prior work <a href="https://vimalabs.github.io/" target="_blank">VIMA-BENCH</a>.
+                This project would not be possible without the wonderful prior work <a
+                  href="https://vimalabs.github.io/" target="_blank">VIMA-BENCH</a>.
               </p>
             </div>
           </div>
